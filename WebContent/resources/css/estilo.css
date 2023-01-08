@@ -1,0 +1,206 @@
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	box-shadow: none;
+	font-family: Trebuchet MS;
+}
+
+body {
+	background: #E8E8E8;
+}
+
+a {
+	text-decoration: none;
+} 
+
+.ui-button {
+	text-shadow: none !important;
+	border: 1px solid #D4D4D4 !important;
+	box-shadow: none !important;
+}
+
+.ui-state-hover, .ui-widget-content .ui-state-hover,  
+.ui-widget-header .ui-state-hover, 
+.ui-state-focus, 
+.ui-widget-content .ui-state-focus, 
+.ui-widget-header .ui-state-focus {
+	box-shadow: none !important;
+	border: 1px solid #464646 !important;
+	border-radius: 5px;
+	background: #dadada;
+}
+
+.ui-datatable {
+	font-size: 11px;
+}
+
+ .ui-datatable th {
+	background: #D3D3D3;
+	font-size: 11px;
+	text-shadow: none !important;
+	border: 1px solid #B4B3B3 !important;
+	box-shadow: none !important;
+}
+
+.ui-datatable td{
+	width: 5px !important;
+	border: 1px solid #E0E0E0 !important;
+}
+
+.ui-datatable-odd {
+	background: #F4F4FF;
+}
+
+.ui-widget-overlay {
+	background: #B0AFAF;
+}
+
+input {
+	border: 1px solid #F0F0F0;
+	box-shadow: none !important;
+	background: #E3E3E3 !important;
+}
+.ui-inputfield {
+    margin: 0;
+    outline: medium none;
+    padding: 4px;
+    font-weight: normal;
+}
+
+.ui-outputlabel-rfi {
+    color: red;
+    font-weight: bold;
+}
+
+/**
+ * Estilo cabeçalho
+ */
+.cabecalhoWrapper {
+	height: 40px;
+	background: #B01E1E;
+}
+
+.cabecalho {
+	width: 980px;
+    height: 40px;
+    margin: 0 auto;
+    color: white;
+    font-size: 12px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.nome-sistema, .nome-departamento, .sair{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 5px;
+}
+
+.sair > a {
+	color: white;
+}
+
+/* Fim do estilo cabeçalho */
+
+/**
+ * Estilo principal
+ */
+.principal{
+    margin: 15px auto;
+    border: 1px solid #dfe0e1;
+    background: #fafafa;
+    width: 980px;
+}
+
+.semBorda tr, .semBorda td {
+    border: none !important;
+}
+
+.ui-button.btnNovo {
+	background: #B01E1E;
+	color:white;
+	font-size: 16px;
+	font-weight: bold;
+	width: 100px;
+	height: 30px;
+	margin: 20px 0 20px 10px;
+}
+
+.ui-button.btnEditar {
+	width: 80px; 
+	margin: 10px 0 10px 0; 
+	height: 25px;
+	background: #FFF2F2;
+}
+
+.ui-button.btnAcoes {
+	width: 80px;
+	height: 25px;
+	margin-bottom: 10px;
+	background: #FFF2F2;
+}
+
+.ui-button.btnDialogSalvar {
+	width: 100px;
+	height: 30px;
+	background: #CDEDCB;
+}
+
+.ui-button.btnDialogCancelar {
+	width: 100px;
+	height: 30px;
+	background: #F3F3BE;
+}
+
+.ui-dialog-titlebar-close{
+	background: white;
+}
+
+.ui-dialog-titlebar	{
+	background: #B01E1E;
+	color:white;
+	text-shadow: none !important;
+	font-size: 14px;
+}
+
+.painelDialog,
+.painelDialog tr,
+.painelDialog tr td {
+	border: transparent;
+	background-color: white;
+	margin: 20px auto;
+	font-size: 11px;
+}
+ /* Fim do estilo principal */
+ 
+ /**
+ * Estilo rodape
+ */
+ .rodapeWrapper {
+ 	height: 40px;
+ 	width: 980px;
+ 	background: #D3D3D3;
+    margin: 3px auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: gray;
+    font-size: 15px;
+ }
+  
+ .rodapeContatos {
+ 	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 5px;
+}
+
+.rodapeContatos > a {
+	color: blue;
+	font-size: 17px;
+}
+ /* Fim do estilo rodape */

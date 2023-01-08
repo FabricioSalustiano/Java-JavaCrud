@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="StyleSheet" type="text/css" href="./resources/css/estilo.css" media="screen"/> 
+	<title>Java CRUD</title>
+</h:head> 
+<h:body>
+	<div class="cabecalhoWrapper">
+		<div class="cabecalho">
+			<div class="nome-sistema">
+				<h:graphicImage library="imagens" name="icone_sistema.png" />
+				<p:outputLabel styleClass="nome-sistema" value="Java CRUD"/>
+			</div>
+			<p:outputLabel value="|"/>
+			<div class="nome-departamento">
+				<h:graphicImage library="imagens" name="icone_departamento.png" />
+				<p:outputLabel styleClass="nome-departamento" value="Desenvolvimento"/>
+			</div>
+			<p:outputLabel value="|"/>
+			<div class="sair">
+				<h:graphicImage library="imagens" name="icone_usuario.png" />
+				<p:commandLink styleClass="sair" value="Sair"/>
+			</div>
+		</div>
+	</div>
+	<div class="principalWrapper">
+		<div class="principal">
+			<h:form id="formClientes">  				
+				<fieldset>
+					<p:growl id="growlCadCli" life="5000" severity="info,warn"/>
+					<p:spacer width="0" height="25"/>
+					<p:panelGrid styleClass="semBorda" style="width:100%;">
+						<p:row>
+							<p:column colspan="2">
+								<center style="color:#3b97d3; font-size:25px;font-weight: bold;">
+									<p:graphicImage library="imagens" name="user_login.png" style="vertical-align:middle"/>
+									Cadastro de clientes
+								</center>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column colspan="2">
+								<p:commandButton styleClass="btnNovo" value="Novo" onclick="PF('dlgCliente').show();" 
+									immediate="true" process="@this"
+									update="formDlgCliente:idCliente formDlgCliente:nomeCliente formDlgCliente:cpfCliente 
+										formDlgCliente:enderecoCliente formDlgCliente:telefoneCliente"/>
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+					
+					<p:dataTable id="tabelaClientes" value="#{clienteBean.clientes}" var="cliente">
+						<p:column headerText="ID">
+							<h:outputText value="#{cliente.idCliente}"/>
+						</p:column>
+						<p:column headerText="Nome">
+							<h:outputText value="#{cliente.nomeCliente}"/>
+						</p:column>
+						<p:column headerText="CPF">
+							<h:outputText value="#{cliente.cpfCliente}"/>
+						</p:column>
+						<p:column headerText="Endereço">
+							<h:outputText value="#{cliente.enderecoCliente}"/>
+						</p:column>
+						<p:column headerText="Telefone">
+							<h:outputText value="#{cliente.telefoneCliente}"/>
+						</p:column>
+						<p:column headerText="Usuario Inicial">
+							<h:outputText value="#{cliente.usuarioInicio}"/>
+						</p:column>
+						<p:column headerText="Usuario Final">
+							<h:outputText value="#{cliente.usuarioFim}"/>
+						</p:column>
+						<p:column headerText="Data Inicial">
+							<h:outputText value="#{cliente.dataInicio}">
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Data Final">
+							<h:outputText value="#{cliente.dataFim}">
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Ações"> 
+							<p:commandButton value="Editar" oncomplete="PF('dlgCliente').show();" icon="ui-icon-pencil"
+								immediate="true" styleClass="btnEditar" process="@this" update="@form">
+								<f:setPropertyActionListener value="#{cliente}" target="#{clienteBean.cliente}"/>
+							</p:commandButton>
+							<ui:fragment rendered="#{empty cliente.dataFim}"> 
+								<p:commandButton value="Inativar" icon="ui-icon-minus" action="#{clienteBean.inativarCliente}"
+									process="@this" update=":formClientes" styleClass="btnAcoes">
+									<f:setPropertyActionListener value="#{cliente}" target="#{clienteBean.cliente}"/>
+								</p:commandButton>
+							</ui:fragment>
+							<ui:fragment rendered="#{not empty cliente.dataFim}"> 
+								<p:commandButton value="Ativar" icon="ui-icon-plus" action="#{clienteBean.ativarCliente}"
+									process="@this" update=":formClientes" styleClass="btnAcoes">
+									<f:setPropertyActionListener value="#{cliente}" target="#{clienteBean.cliente}"/>
+								</p:commandButton>
+							</ui:fragment>
+						</p:column>
+					</p:dataTable>
+					
+					<p:dialog modal="true" header="Java CRUD - Cadastro cliente" widgetVar="dlgCliente" resizable="false" 
+						position="center" draggable="false" width="600px" height="370px" styleClass="modal"
+						showEffect="fade" hideEffect="fade">
+		  				
+						<p:ajax event="close" listener="#{clienteBean.handleClose}"/>
+						<p:messages id="msgCadCli" closable="true" severity="error"/>
+						
+						<h:form id="formDlgCliente">
+						
+							<p:panelGrid columns="2" styleClass="painelDialog" style=" height:250px;">
+								<p:outputLabel value="ID:" for="idCliente"/>
+								<p:inputText id="idCliente" value="#{clienteBean.cliente.idCliente}" size="5" disabled="true"/>
+								<p:outputLabel value="Nome:" for="nomeCliente"/>
+								<p:inputText id="nomeCliente" value="#{clienteBean.cliente.nomeCliente}" size="40" required="true"
+									requiredMessage="Por favor, informe um nome."/>
+								<p:outputLabel value="CPF:" for="cpfCliente"/>
+								<p:inputMask id="cpfCliente" value="#{clienteBean.cliente.cpfCliente}" mask="999.999.999-99"
+									required="true" requiredMessage="Por favor, informe um CPF."/>
+								<p:outputLabel value="Endereço:" for="enderecoCliente"/>
+								<p:inputText id="enderecoCliente" value="#{clienteBean.cliente.enderecoCliente}" size="40" required="true"
+									requiredMessage="Por favor, informe um endereço."/>
+								<p:outputLabel value="Telefone:" for="telefoneCliente"/>
+								<p:inputMask id="telefoneCliente" value="#{clienteBean.cliente.telefoneCliente}" mask="(99) 9999-9999"
+									required="true" requiredMessage="Por favor, informe um telefone."/>
+								<center>
+									<p:row>
+										<p:column>
+											<p:commandButton value="Cancelar" style="margin-right:20px;" styleClass="btnDialogCancelar"
+												 id="btnCancelar" resetValues="true" process="@this"
+												 update="formClientes"/>
+															 
+											<p:commandButton value="Salvar" styleClass="btnDialogSalvar"
+												 action="#{clienteBean.persistir}" process="@form"
+												 update="formClientes:growlCadCli formClientes:tabelaClientes
+												 	formClientes:msgCadCli nomeCliente cpfCliente enderecoCliente 
+												 	telefoneCliente"/>
+										</p:column>
+									</p:row>
+								</center>
+							</p:panelGrid>
+						 </h:form>
+					</p:dialog>
+					
+				</fieldset>
+			</h:form>
+		</div>
+	</div>
+	<div class="rodapeWrapper">
+		<div class="rodapeContatos">
+			<h:graphicImage library="imagens" name="icone_help.png" />
+			<p:outputLabel value="(17) 98166-5739"/>
+			<h:graphicImage library="imagens" name="icone_email.png" style="margin-left: 20px;"/>
+			<a href="#">
+				E-mail
+			</a>
+		</div>
+		<p:outputLabel value="Fabricio Salustiano - Desenvolvedor FullStack" style="margin-right: 20px;"/>
+	</div>
+</h:body>
+</html>
